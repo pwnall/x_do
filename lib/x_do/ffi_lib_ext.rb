@@ -50,11 +50,6 @@ class XDoSearch
     
     search
   end
-  
-  # :nodoc: release bound strings
-  def release
-    
-  end
 end  # class XDo::FFILib::XDoSearch
 
 end  # module XDo::FFILib
