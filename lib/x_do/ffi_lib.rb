@@ -24,22 +24,17 @@ module FFILib
   
   # :nodoc: lifted from xdo.h
   class XDoSearch < FFI::Struct
-    layout :title, :string,
-           :winclass, :string,
-           :winclassname, :string,
-           :winname, :string,
+    layout :title, :pointer,
+           :winclass, :pointer,
+           :winclassname, :pointer,
+           :winname, :pointer,
            :pid, :int,
            :max_depth, :long,
            :only_visible, :int,
            :screen, :int,
            :require, :int,
-           :searchmask, :int,
-           :desktop, :long
+           :searchmask, :int
   end  # class XDo::FFILib::XDoSearch
-  
-  attach_function :xdo_new, [:string], :pointer
-  attach_function :xdo_version, [], :string
-  attach_function :xdo_free, [:pointer], :void
 end  # module XDo::FFILib
 
 end  # namespace XDo
