@@ -1,6 +1,10 @@
 = x_do
 
-Description goes here.
+FFI ruby bindings for libxdo, which injects keystrokes and mouse events into X event queues.
+
+== Installation
+
+The gem requires libxdo on your machine to compile. On an Ubuntu system, you can get it by installing the libxdo-dev package.
 
 == Contributing to x_do
  
@@ -14,6 +18,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Victor Costan. See LICENSE.txt for
-further details.
-
+Copyright (c) 2011 Victor Costan. See LICENSE.txt for further details.
