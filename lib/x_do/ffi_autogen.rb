@@ -10,6 +10,8 @@ module FFILib
     XDO_SUCCESS = 0
     XDO_ERROR = 1
     SEARCH_PID = 0x0008
+    SEARCH_ANY = nil
+    SEARCH_ALL = nil
     SEARCH_TITLE = 0x0001
     SEARCH_CLASS = 0x0002
     SEARCH_NAME = 0x0004

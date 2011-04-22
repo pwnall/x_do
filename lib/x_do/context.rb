@@ -31,6 +31,32 @@ class XDo
   
   # The underlying libxdo context structure.
   attr_accessor :_context
+  # Pointer to the underlying _libxdo context structure.
+  attr_accessor :_pointer
+  
+  # Returns X windows matching a query.
+  #
+  # Args:
+  #   options:: hash that accepts the following keys:
+  #     :title:: grep pattern that the window title has to match
+  #     :name:: grep pattern that the window name has to match
+  #     :class:: grep pattern that the window class has to match
+  #     :class_name:: grep pattern that the window class (name?) has to match
+  #     :pid:: only return windows whose process ID equals this
+  #     :screen:: only return windows in this screen number
+  #     :visible:: if true, only visible windows will be returned
+  #
+  # Returns an array of Window instances that match the query.
+  def find_windows(options = {})
+    query = XDo::FFILib::XDoSearch.from_options options
+    windows_pointer = FFI::MemoryPointer.new :pointer, 1
+    count_pointer = FFI::MemoryPointer.new :ulong, 1
+    XDo::FFILib.xdo_window_search @_pointer, query, windows_pointer,
+                                  count_pointer
+    count = count_pointer.read_ulong
+    windows = windows_pointer.read_pointer.read_array_of_long(count)
+    windows.map { |window| XDo::Window.new self, window }
+  end
   
   # The version of the underlying library.
   #

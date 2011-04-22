@@ -2,13 +2,49 @@ require File.expand_path(File.dirname(__FILE__) + '../../../spec_helper')
 
 describe XDo::FFILib do
   describe 'XDoSearch#from_options' do
-    describe 'with no string flag' do
+    describe 'with no flag' do
       let(:search) do
         XDo::FFILib::XDoSearch.from_options
       end
       
       it 'should set flags to 0' do
         search[:searchmask].should == 0
+      end
+      
+      it 'should set require to AND' do
+        search[:require].should == 1
+      end
+      
+      it 'should set maximum depth to -1' do
+        search[:max_depth].should == -1
+      end
+    end
+    
+    describe 'with a set maximum depth' do
+      let(:search) do
+        XDo::FFILib::XDoSearch.from_options :depth => 42
+      end
+      
+      it 'should not set any flags' do
+        search[:searchmask].should == 0
+      end
+
+      it 'should set field correctly' do
+        search[:max_depth].should == 42
+      end
+    end
+
+    describe 'with require set to :any' do
+      let(:search) do
+        XDo::FFILib::XDoSearch.from_options :require => :any
+      end
+      
+      it 'should not set any flags' do
+        search[:searchmask].should == 0
+      end
+
+      it 'should set require correctly' do
+        search[:require].should == 0
       end
     end
 
@@ -35,7 +71,7 @@ describe XDo::FFILib do
         search[:searchmask].should == XDo::FFILib::Consts::SEARCH_SCREEN
       end
 
-      it 'should set fields correctly' do
+      it 'should set field correctly' do
         search[:screen].should == 42
       end
     end

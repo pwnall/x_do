@@ -35,6 +35,9 @@ module FFILib
            :require, :int,
            :searchmask, :int
   end  # class XDo::FFILib::XDoSearch
+  
+  # :nodoc: Window from X11/X.h (Window -> XID -> unsigned long)
+  typedef :ulong, :window
 end  # module XDo::FFILib
 
 end  # namespace XDo

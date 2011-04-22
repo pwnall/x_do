@@ -22,11 +22,18 @@ module Tasks
     
     consts = Set.new
     headers.each do |header|
-      File.read("#{header_path}#{header}").each_line do |line|
+      contents = File.read("#{header_path}#{header}")
+      contents.each_line do |line|
         tokens = line.split
         next unless tokens[0] == '#define'
         next if tokens[1].index '('
         consts << tokens[1] if pattern =~ tokens[1]
+      end
+      contents.scan /enum\s*\{([^}]*)\}/ do |match|
+        match[0].split(',').each do |enum_item|
+          enum_name = enum_item.split('=').first.strip
+          consts << enum_name if pattern =~ enum_name
+        end
       end
     end
   
@@ -41,7 +48,9 @@ module Tasks
   
   def self.output_constants(constants, f)
     constants.each do |name, const|
-      f.write "    #{const.to_ruby}\n"
+      value = const.to_ruby
+      value += 'nil' if value.strip[-1] == ?=
+      f.write "    #{value}\n"
     end
   end
   

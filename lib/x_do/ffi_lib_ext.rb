@@ -11,6 +11,11 @@ class XDoSearch
   # Creates an XDoSearch structure from options passed to XDo#find_window.
   def self.from_options(options = {})
     search = self.new
+    search[:max_depth] = (options[:depth] || -1).to_i
+    
+    # SEARCH_ANY vs SEARCH_ALL in xdo.h
+    search[:require] = (options[:require] == :any) ? 0 : 1
+
     search[:searchmask] = 0
     [
       [:title, :title, XDo::FFILib::Consts::SEARCH_TITLE],
@@ -37,8 +42,8 @@ class XDoSearch
     end
     
     [
-      [:screen, :screen, XDo::FFILib::Consts::SEARCH_SCREEN],
       [:pid, :pid, XDo::FFILib::Consts::SEARCH_PID],
+      [:screen, :screen, XDo::FFILib::Consts::SEARCH_SCREEN]
     ].each do |option, struct_key, bit|
       if options[option]
         search[:searchmask] |= bit

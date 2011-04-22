@@ -3,6 +3,8 @@ class XDo
 end  # namespace XDo
 
 require 'x_do/context.rb'
+require 'x_do/window.rb'
+
 require 'x_do/ffi_lib.rb'
 require 'x_do/ffi_autogen.rb'
 require 'x_do/ffi_functions.rb'
