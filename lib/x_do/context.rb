@@ -58,6 +58,30 @@ class XDo
     windows.map { |window| XDo::Window.new self, window }
   end
   
+  # Returns the currently active X window.
+  def active_window
+    window_pointer = FFI::MemoryPointer.new :ulong, 1
+    XDo::FFILib.xdo_window_get_active @_pointer, window_pointer
+    XDo::Window.new self, window_pointer.read_ulong
+  end
+  
+  # Returns the X window that has the input focus.
+  def focused_window
+    window_pointer = FFI::MemoryPointer.new :ulong, 1
+    XDo::FFILib.xdo_window_get_focus @_pointer, window_pointer
+    XDo::Window.new self, window_pointer.read_ulong
+  end
+
+  # Returns the "real" X window that has the input focus.
+  #
+  # This calls xdo_window_sane_get_focus instead of xdo_window_get_focus and is
+  # recommended.
+  def real_focused_window
+    window_pointer = FFI::MemoryPointer.new :ulong, 1
+    XDo::FFILib.xdo_window_sane_get_focus @_pointer, window_pointer
+    XDo::Window.new self, window_pointer.read_ulong
+  end
+  
   # The version of the underlying library.
   #
   # This method is mostly useful as a health check on your installtion. A

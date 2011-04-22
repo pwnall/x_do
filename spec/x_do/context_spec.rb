@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '../../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '../../spec_helper')
 
 describe XDo do
   describe 'with no display specification' do
@@ -42,6 +42,30 @@ describe XDo do
       it 'should have a XDo::Window as the first element' do
         windows.first.should be_kind_of(XDo::Window)
       end
+
+      it 'should include the active window' do
+        windows.should include(xdo.active_window)
+      end
+
+      it 'should include the "real" focused window' do
+        windows.should include(xdo.real_focused_window)
+      end
+    end
+    
+    describe 'with no conditions' do
+      let(:windows) { xdo.find_windows }
+      
+      it 'should include the active window' do
+        windows.should include(xdo.active_window)
+      end
+
+      it 'should include the "real" focused window' do
+        windows.should include(xdo.real_focused_window)
+      end
+
+      it 'should include the focused window' do
+        windows.should include(xdo.focused_window)
+      end
     end
     
     describe 'with the current PID' do
@@ -50,6 +74,24 @@ describe XDo do
       it 'should not return any windows for console process' do
         windows.should be_empty
       end
+    end
+  end
+  
+  describe 'active_window' do
+    let(:xdo) { XDo.new }
+    let(:window) { xdo.active_window }
+    
+    it 'should be an XDo::Window' do
+      window.should be_kind_of(XDo::Window)
+    end
+  end
+  
+  describe 'focused_window' do
+    let(:xdo) { XDo.new }
+    let(:window) { xdo.focused_window }
+    
+    it 'should be an XDo::Window' do
+      window.should be_kind_of(XDo::Window)
     end
   end
   
