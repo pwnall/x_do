@@ -6,6 +6,10 @@ FFI ruby bindings for libxdo, which injects keystrokes and mouse events into X e
 
 The gem requires libxdo on your machine to compile. On an Ubuntu system, you can get it by installing the libxdo-dev package.
 
+== Documentation
+
+Up-to-date RDocs are available at http://rdoc.info/github/pwnall/x_do/frames
+
 == Testing
 
 Tests require that xdotool is installed and on your path. On an Ubuntu system, you can get it by installing the xdotool package.
