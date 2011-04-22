@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = 'x_do'
   gem.homepage = 'http://github.com/pwnall/x_do'
   gem.license = 'MIT'
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = 'Ruby FFI for libxdo (X mouse / keypress injector)'
+  gem.description = 'Wraps libxdo using ffi, for high performance'
   gem.email = 'victor@costan.us'
   gem.authors = ['Victor Costan']
   # Include your dependencies below. Runtime dependencies are required when using your gem,
