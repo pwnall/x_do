@@ -40,11 +40,22 @@ class Window
                                     height_pointer
     [width_pointer.read_int, height_pointer.read_int]
   end
+
+  def move(x, y)
+    move_raw x, y
+    glitched_location = self.location
+    x_decoration = glitched_location.first - x
+    y_decoration = glitched_location.last - y
+    move_raw x - x_decoration, y - y_decoration
+  end
   
   # Moves this window to a new position.
-  def move(x, y)
+  #
+  # The position is given directly to X, and does not account for window
+  # decorations.
+  def move_raw(x, y)
     old_location = self.location
-    return_value = move_async x, y
+    return_value = move_raw_async x, y
     100.times do
       break unless self.location == old_location
       sleep 0.01
@@ -53,7 +64,7 @@ class Window
   end
   
   # Asks X to move this window to a new position.
-  def move_async(x, y)
+  def move_raw_async(x, y)
     XDo::FFILib.xdo_window_move @_xdo_pointer, @_window, x, y
   end
   

@@ -9,6 +9,7 @@ class XDo
   def initialize(display_name = nil)
     @_pointer = XDo::FFILib.xdo_new display_name
     @_context = XDo::FFILib::XDoContext.new @_pointer
+    @mouse = XDo::Mouse.new self
   end
   
   # Releases resources associated with this context.
@@ -33,6 +34,9 @@ class XDo
   attr_accessor :_context
   # Pointer to the underlying _libxdo context structure.
   attr_accessor :_pointer
+  
+  # The mouse state for this context.
+  attr_accessor :mouse
   
   # Returns X windows matching a query.
   #

@@ -95,6 +95,15 @@ describe XDo do
     end
   end
   
+  describe 'mouse' do
+    let(:xdo) { XDo.new }
+    let(:mouse) { xdo.mouse }
+    
+    it 'should be an XDo::Mouse' do
+      mouse.should be_kind_of(XDo::Mouse)
+    end
+  end
+  
   describe 'with :0 display name' do
     let(:display) { ':0'}
     let(:xdo) { XDo.new display }

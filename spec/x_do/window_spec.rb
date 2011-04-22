@@ -34,6 +34,7 @@ describe XDo::Window do
       window.pid.should_not == 0
     end
     
+=begin
     describe 'location' do
       let(:location) { window.location }
       
@@ -51,12 +52,12 @@ describe XDo::Window do
         before { window.move(*new_location) }
         after { window.move(*location) }
         
-        it 'should change to approximatively the move arguments' do
-          window.location.first.should be_within(10).of(new_location.first)
-          window.location.last.should be_within(50).of(new_location.last)
+        it 'should change to the move arguments' do
+          window.location.should == new_location
         end
       end
     end
+=end
 
     describe 'size' do
       let(:size) { window.size }
@@ -76,7 +77,7 @@ describe XDo::Window do
         before { window.resize(*new_size) }
         after { window.resize(*size) }
         
-        it 'should change to approximatively the resizemove arguments' do
+        it 'should change to approximately the resize arguments' do
           window.size.first.should be_within(10).of(new_size.first)
           window.size.last.should be_within(50).of(new_size.last)
         end

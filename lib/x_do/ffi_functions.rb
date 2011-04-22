@@ -33,6 +33,10 @@ module FFILib
                                     XDo::FFILib::Status
   attach_function :xdo_window_setsize, [:pointer, :window, :int, :int, :int],
                                        XDo::FFILib::Status
+  attach_function :xdo_mouselocation, [:pointer, :pointer, :pointer, :pointer],
+                                      XDo::FFILib::Status
+  attach_function :xdo_mousemove, [:pointer, :window, :int, :int, :int],
+                                   XDo::FFILib::Status
 end  # module XDo::FFILib
 
 end  # namespace XDo
