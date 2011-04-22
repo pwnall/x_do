@@ -9,6 +9,7 @@ class XDo
   def initialize(display_name = nil)
     @_pointer = XDo::FFILib.xdo_new display_name
     @_context = XDo::FFILib::XDoContext.new @_pointer
+    @keyboard = XDo::Keyboard.new self
     @mouse = XDo::Mouse.new self
   end
   
@@ -35,6 +36,9 @@ class XDo
   # Pointer to the underlying _libxdo context structure.
   attr_accessor :_pointer
   
+  # The keyboard state for this context.
+  attr_accessor :keyboard
+
   # The mouse state for this context.
   attr_accessor :mouse
   

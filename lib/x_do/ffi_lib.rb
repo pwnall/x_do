@@ -38,6 +38,8 @@ module FFILib
   
   # :nodoc: Window from X11/X.h (Window -> XID -> unsigned long)
   typedef :ulong, :window
+  # :nodoc: useconds_t from sys/types.h
+  typedef :ulong, :useconds_t
 end  # module XDo::FFILib
 
 end  # namespace XDo

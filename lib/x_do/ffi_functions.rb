@@ -49,6 +49,15 @@ module FFILib
   attach_function :xdo_mousedown, [:pointer, :window, :int], XDo::FFILib::Status
   attach_function :xdo_mouseup, [:pointer, :window, :int], XDo::FFILib::Status
   attach_function :xdo_click, [:pointer, :window, :int], XDo::FFILib::Status
+
+  attach_function :xdo_type, [:pointer, :window, :string, :int],
+                             XDo::FFILib::Status
+  attach_function :xdo_keysequence, [:pointer, :window, :string, :int],
+                                    XDo::FFILib::Status
+  attach_function :xdo_keysequence_down, [:pointer, :window, :string, :int],
+                                         XDo::FFILib::Status
+  attach_function :xdo_keysequence_up, [:pointer, :window, :string, :int],
+                                       XDo::FFILib::Status
 end  # module XDo::FFILib
 
 end  # namespace XDo

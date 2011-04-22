@@ -127,5 +127,15 @@ describe XDo::Window do
         end
       end
     end
+    
+    describe 'after typing injected in the window' do
+      before do
+        window.type_string "injected\n"
+      end
+      
+      it 'should reflect the string in gets' do
+        $stdin.gets.should == "injected\n"
+      end
+    end
   end
 end
