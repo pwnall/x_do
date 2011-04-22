@@ -19,32 +19,32 @@ class Keyboard
   attr_accessor :xdo
   
   # Types a string into the current window.
-  def type_string(string, delay = 0.12)
-    XDo::FFILib.xdo_type @_xdo_pointer, 0, string, (delay * 100_000).to_i
+  def type_string(string, delay = 0.012)
+    XDo::FFILib.xdo_type @_xdo_pointer, 0, string, (delay * 1_000_000).to_i
   end
   
   # Sends a keysequence to this window.
   #
   # Examples: "alt+Return", "Alt_L+Tab", "l", "semicolon"
-  def type_keysequence(keysequence, delay = 0.12)
+  def type_keysequence(keysequence, delay = 0.012)
     XDo::FFILib.xdo_keysequence @_xdo_pointer, 0, keysequence,
-                                (delay * 100_000).to_i
+                                (delay * 1_000_000).to_i
   end
   
   # Presses a keysequence in this window.
   #
   # Examples: "alt+Return", "Alt_L+Tab", "l", "semicolon"
-  def press_keysequence(keysequence, delay = 0.12)
+  def press_keysequence(keysequence, delay = 0.012)
     XDo::FFILib.xdo_keysequence_down @_xdo_pointer, 0, keysequence,
-                                     (delay * 100_000).to_i
+                                     (delay * 1_000_000).to_i
   end
   
   # Releases a keysequence in this window.
   #
   # Examples: "alt+Return", "Alt_L+Tab", "l", "semicolon"
-  def release_keysequence(keysequence, delay = 0.12)
+  def release_keysequence(keysequence, delay = 0.012)
     XDo::FFILib.xdo_keysequence_up @_xdo_pointer, 0, keysequence,
-                                   (delay * 100_000).to_i
+                                   (delay * 1_000_000).to_i
   end
 end  # class XDo::Keyboard
 
