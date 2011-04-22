@@ -28,10 +28,59 @@ describe XDo::Window do
     end
   end
   
-  describe '"real" focused window' do
-    let(:window) { xdo.real_focused_window }
+  describe 'active window' do
+    let(:window) { xdo.active_window }
     it 'should have a non-zero pid' do
       window.pid.should_not == 0
+    end
+    
+    describe 'location' do
+      let(:location) { window.location }
+      
+      it 'should have 2 coordinates' do
+        location.should have(2).coordinates
+      end
+      
+      it 'should have non-negative coordinates' do
+        location.first.should >= 0
+        location.last.should >= 0
+      end
+      
+      describe 'after moving' do
+        let(:new_location) { [location.first + 200, location.last + 200] }
+        before { window.move(*new_location) }
+        after { window.move(*location) }
+        
+        it 'should change to approximatively the move arguments' do
+          window.location.first.should be_within(10).of(new_location.first)
+          window.location.last.should be_within(50).of(new_location.last)
+        end
+      end
+    end
+
+    describe 'size' do
+      let(:size) { window.size }
+      
+      it 'should have 2 dimensions' do
+        size.should have(2).dimensions
+      end
+      
+      it 'should have positive dimensions' do
+        size.first.should > 0
+        size.last.should > 0
+      end
+      
+      describe 'after resizing' do
+        let(:new_size) { [size.first + 100, size.last + 100 ] }
+
+        before { window.resize(*new_size) }
+        after { window.resize(*size) }
+        
+        it 'should change to approximatively the resizemove arguments' do
+          window.size.first.should be_within(10).of(new_size.first)
+          window.size.last.should be_within(50).of(new_size.last)
+        end
+      end
     end
   end
 end

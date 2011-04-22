@@ -20,12 +20,19 @@ module FFILib
   attach_function :xdo_window_search, [:pointer, :pointer, :pointer, :pointer],
                                       XDo::FFILib::Status
 
-  attach_function :xdo_window_activate, [:pointer, :window],
+  attach_function :xdo_window_activate, [:pointer, :window], XDo::FFILib::Status
+  attach_function :xdo_window_focus, [:pointer, :window], XDo::FFILib::Status
+  attach_function :xdo_window_raise, [:pointer, :window], XDo::FFILib::Status
+                                     
+  attach_function :xdo_get_window_location, [:pointer, :window, :pointer,
+                                             :pointer, :pointer],
+                                            XDo::FFILib::Status
+  attach_function :xdo_get_window_size, [:pointer, :window, :pointer, :pointer],
                                         XDo::FFILib::Status
-  attach_function :xdo_window_focus, [:pointer, :window],
-                                     XDo::FFILib::Status
-  attach_function :xdo_window_raise, [:pointer, :window],
-                                     XDo::FFILib::Status
+  attach_function :xdo_window_move, [:pointer, :window, :int, :int],
+                                    XDo::FFILib::Status
+  attach_function :xdo_window_setsize, [:pointer, :window, :int, :int, :int],
+                                       XDo::FFILib::Status
 end  # module XDo::FFILib
 
 end  # namespace XDo

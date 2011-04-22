@@ -23,6 +23,63 @@ class Window
     XDo::FFILib.xdo_window_get_pid @_xdo_pointer, @_window
   end
   
+  # [x, y] array containing the window's coordinates.
+  def location
+    x_pointer = FFI::MemoryPointer.new :int, 1
+    y_pointer = FFI::MemoryPointer.new :int, 1
+    XDo::FFILib.xdo_get_window_location @_xdo_pointer, @_window, x_pointer,
+                                        y_pointer, nil
+    [x_pointer.read_int, y_pointer.read_int]
+  end
+  
+  # [width, height] array containing the window's size.
+  def size
+    width_pointer = FFI::MemoryPointer.new :int, 1
+    height_pointer = FFI::MemoryPointer.new :int, 1
+    XDo::FFILib.xdo_get_window_size @_xdo_pointer, @_window, width_pointer,
+                                    height_pointer
+    [width_pointer.read_int, height_pointer.read_int]
+  end
+  
+  # Moves this window to a new position.
+  def move(x, y)
+    old_location = self.location
+    return_value = move_async x, y
+    100.times do
+      break unless self.location == old_location
+      sleep 0.01
+    end
+    return_value
+  end
+  
+  # Asks X to move this window to a new position.
+  def move_async(x, y)
+    XDo::FFILib.xdo_window_move @_xdo_pointer, @_window, x, y
+  end
+  
+  # Resizes this window.
+  #
+  # Args:
+  #   width:: the new window's width
+  #   height:: the new window's height
+  #   use_hints:: if false, width and height are specified in pixels; otherwise,
+  #               the unit is relative to window size hints
+  def resize(width, height, use_hints = false)
+    old_size = self.size
+    return_value = resize_async width, height, use_hints
+    100.times do
+      break unless self.size == old_size
+      sleep 0.01
+    end
+    return_value
+  end
+  
+  # Asks X to resize this window.
+  def resize_async(width, height, use_hints = false)
+    flags = use_hints ? XDo::FFILib::Consts::SIZE_U : 0
+    XDo::FFILib.xdo_window_setsize @_xdo_pointer, @_window, width, height, flags
+  end
+  
   # Creates a wrapper for an X Window handle.
   #
   # This constructor is called internally by XDo#find_windows and client code
