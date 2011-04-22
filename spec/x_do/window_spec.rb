@@ -34,7 +34,6 @@ describe XDo::Window do
       window.pid.should_not == 0
     end
     
-=begin
     describe 'location' do
       let(:location) { window.location }
       
@@ -57,7 +56,6 @@ describe XDo::Window do
         end
       end
     end
-=end
 
     describe 'size' do
       let(:size) { window.size }
@@ -72,7 +70,7 @@ describe XDo::Window do
       end
       
       describe 'after resizing' do
-        let(:new_size) { [size.first + 100, size.last + 100 ] }
+        let(:new_size) { [size.first + 100, size.last + 100] }
 
         before { window.resize(*new_size) }
         after { window.resize(*size) }
@@ -80,6 +78,52 @@ describe XDo::Window do
         it 'should change to approximately the resize arguments' do
           window.size.first.should be_within(10).of(new_size.first)
           window.size.last.should be_within(50).of(new_size.last)
+        end
+      end
+    end
+    
+    describe 'after mouse move in window center' do
+      before do
+        @old_mouse_location = xdo.mouse.location
+        size = window.size
+        middle = [size.first / 2, size.last / 2]
+        window.move_mouse(*middle)
+      end
+      after do
+        xdo.mouse.move(*@old_mouse_location)
+      end
+      
+      it 'should have moved the mouse cursor' do
+        xdo.mouse.location.should_not == @old_mouse_location
+      end
+      
+      describe 'after right click' do
+        before do
+          @old_window_count = xdo.find_windows.length
+          window.click_mouse 3
+          sleep 0.1
+        end
+        
+        after do
+          xdo.mouse.move_relative -20, -20
+          xdo.mouse.click 1
+          sleep 0.1
+        end
+        
+        it 'should have popped up a context menu' do
+          xdo.find_windows.length.should_not == @old_window_count
+        end
+        
+        describe 'after left click outside menu' do
+          before do
+            xdo.mouse.move_relative -20, -20
+            xdo.mouse.click 3
+            sleep 0.1
+          end
+
+          it 'should have dismissed context menu' do
+            xdo.find_windows.length.should == @old_window_count
+          end
         end
       end
     end

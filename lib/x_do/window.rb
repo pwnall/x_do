@@ -91,6 +91,34 @@ class Window
     XDo::FFILib.xdo_window_setsize @_xdo_pointer, @_window, width, height, flags
   end
   
+  # Moves the mouse in window coordinates.
+  def move_mouse(window_x, window_y)
+    old_location = @xdo.mouse.location
+    move_mouse_async window_x, window_y
+    @xdo.mouse.wait_for_move_from old_location[0], old_location[1]
+  end
+
+  # Moves the mouse in window coordinates.
+  def move_mouse_async(window_x, window_y)
+    XDo::FFILib.xdo_mousemove_relative_to_window @_xdo_pointer, @_window,
+                                                 window_x, window_y
+  end
+  
+  # Clicks a mouse button.
+  def click_mouse(button)
+    XDo::FFILib.xdo_click @_xdo_pointer, @_window, button
+  end
+
+  # Presses a mouse button.
+  def press_mouse(button)
+    XDo::FFILib.xdo_mousedown @_xdo_pointer, @_window, button
+  end
+
+  # Releases a mouse button.
+  def release_mouse(button)
+    XDo::FFILib.xdo_mouseup @_xdo_pointer, @_window, button
+  end
+  
   # Creates a wrapper for an X Window handle.
   #
   # This constructor is called internally by XDo#find_windows and client code

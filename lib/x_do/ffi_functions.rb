@@ -35,8 +35,20 @@ module FFILib
                                        XDo::FFILib::Status
   attach_function :xdo_mouselocation, [:pointer, :pointer, :pointer, :pointer],
                                       XDo::FFILib::Status
-  attach_function :xdo_mousemove, [:pointer, :window, :int, :int, :int],
-                                   XDo::FFILib::Status
+  attach_function :xdo_mousemove, [:pointer, :int, :int, :int],
+                                  XDo::FFILib::Status
+  attach_function :xdo_mousemove_relative, [:pointer, :int, :int],
+                                           XDo::FFILib::Status
+  attach_function :xdo_mouse_wait_for_move_from, [:pointer, :int, :int],
+                                                 XDo::FFILib::Status
+  attach_function :xdo_mouse_wait_for_move_to, [:pointer, :int, :int],
+                                               XDo::FFILib::Status
+  
+  attach_function :xdo_mousemove_relative_to_window, [:pointer, :window, :int,
+                                                      :int], XDo::FFILib::Status
+  attach_function :xdo_mousedown, [:pointer, :window, :int], XDo::FFILib::Status
+  attach_function :xdo_mouseup, [:pointer, :window, :int], XDo::FFILib::Status
+  attach_function :xdo_click, [:pointer, :window, :int], XDo::FFILib::Status
 end  # module XDo::FFILib
 
 end  # namespace XDo
