@@ -78,6 +78,10 @@ module Tasks
       sizing_consts = resolve_constants(/^SIZE_/, '%d')
       # Search direction.
       direction_consts = resolve_constants(/^XDO_FIND_/, '%d')
+      stat_consts.delete_if { |k, v| direction_consts[k] }
+      # Features.
+      feature_consts = resolve_constants(/^XDO_FEATURE_/, '%d')
+      stat_consts.delete_if { |k, v| feature_consts[k] }
       
       f.write "# :nodoc: namespace\n"
       f.write "class XDo\n\n"
@@ -90,6 +94,7 @@ module Tasks
       output_constants search_consts, f
       output_constants sizing_consts, f
       output_constants direction_consts, f
+      output_constants feature_consts, f
       f.write "  end  # module XDo::FFILib::Consts\n\n"
     
       f.write "  # Status returned by libxdo functions.\n"
@@ -100,6 +105,10 @@ module Tasks
       output_enum 'Direction', direction_consts, 'XDO_FIND_(.*)', f
       f.write "\n"
     
+      f.write "  # Optional features.\n"
+      output_enum 'Feature', feature_consts, 'XDO_FEATURE_(.*)', f
+      f.write "\n"
+
       f.write "end  # namespace XDo::FFILib\n"
       f.write "end  # namespace XDo\n"
     end

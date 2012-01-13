@@ -23,6 +23,17 @@ class Window
     XDo::FFILib.xdo_window_get_pid @_xdo_pointer, @_window
   end
   
+  # The name of the window.
+  def name
+    name_ppointer = FFI::MemoryPointer.new :pointer, 1
+    len_pointer = FFI::MemoryPointer.new :int, 1 
+    name_type_pointer = FFI::MemoryPointer.new :int, 1 
+    XDo::FFILib.xdo_get_window_name @_xdo_pointer, @_window, name_ppointer,
+                                    len_pointer, name_type_pointer
+    name_pointer = name_ppointer.read_pointer
+    name_pointer.nil? ? nil : name_pointer.read_string(len_pointer.read_int)
+  end
+
   # [x, y] array containing the window's coordinates.
   def location
     x_pointer = FFI::MemoryPointer.new :int, 1
@@ -177,6 +188,15 @@ class Window
   # :nodoc: override hash to match ==
   def hash
     _window.hash
+  end
+  
+  # :nodoc: override to_s for so Windows don't look so bad
+  def to_s
+    name_str = name.inspect
+    at_str = location.inspect
+    size_str = size.inspect
+    "#<XDo::Window:#{_window} pid=#{pid} title=#{name.inspect} at=#{at_str} " +
+                             "size=#{size_str}>"
   end
 end  # class XDo::Window
 

@@ -7,30 +7,43 @@ class XDo
 module FFILib
   # Constant values extracted from headers.
   module Consts
-    XDO_SUCCESS = 0
     XDO_ERROR = 1
-    SEARCH_PID = 0x0008
-    SEARCH_ANY = nil
-    SEARCH_ALL = nil
+    XDO_SUCCESS = 0
     SEARCH_TITLE = 0x0001
     SEARCH_CLASS = 0x0002
     SEARCH_NAME = 0x0004
+    SEARCH_PID = 0x0008
+    SEARCH_ONLYVISIBLE = 0x0010
     SEARCH_SCREEN = 0x0020
     SEARCH_CLASSNAME = 0x0040
-    SEARCH_ONLYVISIBLE = 0x0010
+    SEARCH_DESKTOP = 0x0080
+    SEARCH_ANY = nil
+    SEARCH_ALL = nil
     SIZE_USEHINTS = 1
+    SIZE_USEHINTS_X = 2
+    SIZE_USEHINTS_Y = 4
     SIZE_TO = 0
     SIZE_FROM = 1
+    XDO_FIND_PARENTS = 0
+    XDO_FIND_CHILDREN = 1
+    XDO_FEATURE_XTEST = nil
   end  # module XDo::FFILib::Consts
 
   # Status returned by libxdo functions.
   Status = enum [
-    :success, Consts::XDO_SUCCESS,
     :error, Consts::XDO_ERROR,
+    :success, Consts::XDO_SUCCESS,
   ]
 
   # Search directions.
   Direction = enum [
+    :parents, Consts::XDO_FIND_PARENTS,
+    :children, Consts::XDO_FIND_CHILDREN,
+  ]
+
+  # Optional features.
+  Feature = enum [
+    :xtest, Consts::XDO_FEATURE_XTEST,
   ]
 
 end  # namespace XDo::FFILib

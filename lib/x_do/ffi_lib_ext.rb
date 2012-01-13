@@ -43,7 +43,9 @@ class XDoSearch
     
     [
       [:pid, :pid, XDo::FFILib::Consts::SEARCH_PID],
-      [:screen, :screen, XDo::FFILib::Consts::SEARCH_SCREEN]
+      [:screen, :screen, XDo::FFILib::Consts::SEARCH_SCREEN],
+      [:desktop, :desktop, XDo::FFILib::Consts::SEARCH_DESKTOP]
+
     ].each do |option, struct_key, bit|
       if options[option]
         search[:searchmask] |= bit
@@ -52,6 +54,8 @@ class XDoSearch
         search[struct_key] = 0
       end
     end
+    
+    search[:limit] = options[:limit].to_i || 0
     
     search
   end

@@ -24,6 +24,8 @@ module FFILib
   attach_function :xdo_window_focus, [:pointer, :window], XDo::FFILib::Status
   attach_function :xdo_window_raise, [:pointer, :window], XDo::FFILib::Status
                                      
+  attach_function :xdo_get_window_name, [:pointer, :window, :pointer, :pointer, 
+                                         :pointer], XDo::FFILib::Status
   attach_function :xdo_get_window_location, [:pointer, :window, :pointer,
                                              :pointer, :pointer],
                                             XDo::FFILib::Status

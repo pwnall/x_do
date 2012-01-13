@@ -34,6 +34,14 @@ describe XDo::Window do
       window.pid.should_not == 0
     end
     
+    describe 'name' do
+      let(:name) { window.name }
+      
+      it 'should not be empty' do
+        name.should_not be_empty
+      end
+    end
+    
     describe 'location' do
       let(:location) { window.location }
       
@@ -88,6 +96,7 @@ describe XDo::Window do
         size = window.size
         middle = [size.first / 2, size.last / 2]
         window.move_mouse(*middle)
+        sleep 0.1
       end
       after do
         xdo.mouse.move(*@old_mouse_location)
@@ -117,7 +126,7 @@ describe XDo::Window do
         describe 'after left click outside menu' do
           before do
             xdo.mouse.move_relative -20, -20
-            xdo.mouse.click 3
+            xdo.mouse.click 1
             sleep 0.1
           end
 
@@ -128,13 +137,13 @@ describe XDo::Window do
       end
     end
     
-    describe 'after typing injected in the window' do
+    describe 'after typing wnd_injected in the window' do
       before do
-        window.type_string "injected\n"
+        window.type_string "wnd_injected\n"
       end
       
       it 'should reflect the string in gets' do
-        $stdin.gets.should == "injected\n"
+        $stdin.gets.should == "wnd_injected\n"
       end
     end
   end

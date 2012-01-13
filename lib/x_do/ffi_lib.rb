@@ -19,7 +19,10 @@ module FFILib
            :keycode_high, :int,
            :keycode_low, :int,
            :keysyms_per_keycode, :int,
-           :close_display_when_freed, :int
+           :close_display_when_freed, :int,
+           :quiet, :int,
+           :debug, :int,
+           :features_mask, :int
   end  # class XDo::FFILib::XDoContext
   
   # :nodoc: lifted from xdo.h
@@ -33,7 +36,9 @@ module FFILib
            :only_visible, :int,
            :screen, :int,
            :require, :int,
-           :searchmask, :int
+           :searchmask, :int,
+           :desktop, :long,
+           :limit, :uint
   end  # class XDo::FFILib::XDoSearch
   
   # :nodoc: Window from X11/X.h (Window -> XID -> unsigned long)

@@ -20,13 +20,13 @@ describe XDo::Keyboard do
     end
   end
   
-  describe 'after typing injected' do
+  describe 'after typing kbd_injected' do
     before do
-      keyboard.type_string "injected\n"
+      keyboard.type_string "kbd_injected\n"
     end
     
     it 'should reflect the string in gets' do
-      $stdin.gets.should == "injected\n"
+      $stdin.gets.should == "kbd_injected\n"
     end
   end
 end

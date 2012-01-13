@@ -18,6 +18,10 @@ describe XDo::FFILib do
       it 'should set maximum depth to -1' do
         search[:max_depth].should == -1
       end
+
+      it 'should set limit to 0' do
+        search[:limit].should == 0
+      end
     end
     
     describe 'with a set maximum depth' do
@@ -120,6 +124,16 @@ describe XDo::FFILib do
       it 'should set fields correctly' do
         search[:winclassname].get_string(0).should == 'rbx'
         search[:pid].should == 42
+      end
+    end
+
+    describe 'with a limit' do
+      let(:search) do
+        XDo::FFILib::XDoSearch.from_options :limit => 5
+      end
+      
+      it 'should set fields correctly' do
+        search[:limit].should == 5
       end
     end
   end

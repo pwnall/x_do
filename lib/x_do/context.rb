@@ -52,6 +52,7 @@ class XDo
   #     :class_name:: grep pattern that the window class (name?) has to match
   #     :pid:: only return windows whose process ID equals this
   #     :screen:: only return windows in this screen number
+  #     :desktop:: only return windows with this desktop number
   #     :visible:: if true, only visible windows will be returned
   #
   # Returns an array of Window instances that match the query.

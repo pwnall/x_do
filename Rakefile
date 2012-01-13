@@ -42,7 +42,7 @@ end
 
 task :default => :spec
 
-require 'rake/rdoctask'
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ''
 
@@ -52,6 +52,6 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-require 'tasks/ffi_codegen.rb'
+load 'tasks/ffi_codegen.rb'
 task :package => :ffi_header
 task :spec => :ffi_header

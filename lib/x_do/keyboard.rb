@@ -23,7 +23,7 @@ class Keyboard
     XDo::FFILib.xdo_type @_xdo_pointer, 0, string, (delay * 1_000_000).to_i
   end
   
-  # Sends a keysequence to this window.
+  # Sends a keysequence to the active window.
   #
   # Examples: "alt+Return", "Alt_L+Tab", "l", "semicolon"
   def type_keysequence(keysequence, delay = 0.012)
@@ -31,7 +31,7 @@ class Keyboard
                                 (delay * 1_000_000).to_i
   end
   
-  # Presses a keysequence in this window.
+  # Presses a keysequence in the active window.
   #
   # Examples: "alt+Return", "Alt_L+Tab", "l", "semicolon"
   def press_keysequence(keysequence, delay = 0.012)
@@ -39,7 +39,7 @@ class Keyboard
                                      (delay * 1_000_000).to_i
   end
   
-  # Releases a keysequence in this window.
+  # Releases a keysequence in the active window.
   #
   # Examples: "alt+Return", "Alt_L+Tab", "l", "semicolon"
   def release_keysequence(keysequence, delay = 0.012)

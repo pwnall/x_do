@@ -66,6 +66,18 @@ describe XDo do
       it 'should include the focused window' do
         windows.should include(xdo.focused_window)
       end
+      
+      it 'should return more than 3 windows' do
+        windows.should have_at_least(3).windows
+      end
+    end
+    
+    describe 'with limit' do
+      let(:windows) { xdo.find_windows :limit => 3 }
+      
+      it 'should only return 3 windows' do
+        windows.should have(3).windows
+      end
     end
     
     describe 'with the current PID' do
@@ -83,6 +95,10 @@ describe XDo do
     
     it 'should be an XDo::Window' do
       window.should be_kind_of(XDo::Window)
+    end
+    
+    it 'should match the output of xdotool' do
+      window._window.should == `xdotool getactivewindow`.to_i
     end
   end
   
